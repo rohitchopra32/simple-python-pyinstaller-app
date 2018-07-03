@@ -2,7 +2,6 @@ pipeline {
     agent none
     stages {
         stage('Build') {
-            properties([pipelineTriggers([[$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
             agent {
                 docker {
                     image 'python:2-alpine'
@@ -13,7 +12,6 @@ pipeline {
             }
         }
         stage('Test') {
-            properties([pipelineTriggers([[$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
             agent {
                 docker {
                     image 'qnib/pytest'
@@ -29,7 +27,6 @@ pipeline {
             }
         }
         stage('Deliver') {
-            properties([pipelineTriggers([[$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
             agent {
                 docker {
                     image 'cdrx/pyinstaller-linux:python2'
